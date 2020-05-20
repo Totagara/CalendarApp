@@ -24,7 +24,7 @@ export const CalendarAdminBar = ({ currentUser, setCurrentUser, usersList, setUs
         setCurrentUser={setCurrentUser}
         usersList={usersList}
       />
-      <AddUser usersList={usersList} setUsersList={setUsersList} />
+      <AddUser usersList={usersList} setUsersList={setUsersList}  setCurrentUser={setCurrentUser}/>
       <AddWorkHours currentUser={currentUser} />
     </>
   );
@@ -50,7 +50,7 @@ const UserDropDown = ({ currentUser, setCurrentUser, usersList }) => {
   );
 };
 
-const AddUser = ({ usersList, setUsersList }) => {
+const AddUser = ({ usersList, setUsersList, setCurrentUser }) => {
   const name = useRef("");
   const email = useRef("");
   const phone = useRef("");
@@ -72,6 +72,7 @@ const AddUser = ({ usersList, setUsersList }) => {
       .then((res) => {
         userObj.id = res.userId;
         setUsersList([...usersList, userObj]);
+        setCurrentUser(res.userId);
       })
       .catch((err) => {
         console.log("Error: " + err);
